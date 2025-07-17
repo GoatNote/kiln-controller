@@ -86,10 +86,14 @@ try:
     import board
     spi_sclk  = board.D17    #spi clock
     spi_miso  = board.D27    #spi Microcomputer In Serial Out
-    spi_cs    = board.D22    #spi Chip Select
-    spi_mosi  = board.D10    #spi Microcomputer Out Serial In (not connected) 
-    gpio_heat = board.D23    #output that controls relay
+    spi_cs    = board.D10    #spi Chip Select
+    spi_mosi  = board.D22    #spi Microcomputer Out Serial In (not connected) 
+    gpio_heat = board.D26    #output that controls relay
     gpio_heat_invert = False #invert the output state
+    gpio_status_led1 = board.D5 #status LED GPIO pin1
+    gpio_status_led2 = board.D6 #status LED GPIO pin2
+    gpio_status_led3 = board.D13 #status LED GPIO pin3
+    gpio_door_status = board.D16
 except (NotImplementedError,AttributeError):
     print("not running on blinka recognized board, probably a simulation")
 
@@ -99,8 +103,8 @@ except (NotImplementedError,AttributeError):
 # There are only two breakoutboards supported. 
 #   max31855 - only supports type K thermocouples
 #   max31856 - supports many thermocouples
-max31855 = 1
-max31856 = 0
+max31855 = 0
+max31856 = 1
 # uncomment these two lines if using MAX-31856
 import adafruit_max31856
 thermocouple_type = adafruit_max31856.ThermocoupleType.K
@@ -155,7 +159,7 @@ stop_integral_windup = True
 ########################################################################
 #
 #   Simulation parameters
-simulate = True
+simulate = False
 sim_t_env      = 65   # deg
 sim_c_heat     = 500.0  # J/K  heat capacity of heat element
 sim_c_oven     = 5000.0 # J/K  heat capacity of oven
@@ -176,7 +180,7 @@ sim_speedup_factor = 1
 #
 # If you change the temp_scale, all settings in this file are assumed to
 # be in that scale.
-temp_scale          = "f" # c = Celsius | f = Fahrenheit - Unit to display
+temp_scale          = "c" # c = Celsius | f = Fahrenheit - Unit to display
 time_scale_slope    = "h" # s = Seconds | m = Minutes | h = Hours - Slope displayed in temp_scale per time_scale_slope
 time_scale_profile  = "m" # s = Seconds | m = Minutes | h = Hours - Enter and view target time in time_scale_profile
 

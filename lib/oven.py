@@ -38,6 +38,10 @@ class Output(object):
         config.gpio_heat
         config.gpio_heat_invert
     '''
+    '''
+    #this has been modified to include a gpio output for a 
+    solid state relay staus LED, powered of said gpio
+    '''
     def __init__(self):
         self.active = False
         self.heater = digitalio.DigitalInOut(config.gpio_heat) 
@@ -45,13 +49,23 @@ class Output(object):
         self.off = config.gpio_heat_invert
         self.on = not self.off
 
+        self.heat_status_led = digitalio.DigitalInOut(config.gpio_status_led3)
+        self.heat_status_led.direction = digitalio.Direction.OUTPUT
+
+        self.door_status = digitalio.DigitalInOut(config.gpio_door_status)
+        self.door_status.direction = digitalio.Direction.INPUT
+        self.door_status.pull = digitalio.Pull.DOWN
+
     def heat(self,sleepfor):
         self.heater.value = self.on
+        if self.door_status.value is True:
+            self.heat_status_led.value = self.on
         time.sleep(sleepfor)
 
     def cool(self,sleepfor):
         '''no active cooling, so sleep'''
         self.heater.value = self.off
+        self.heat_status_led.value = self.off
         time.sleep(sleepfor)
 
 # wrapper for blinka board

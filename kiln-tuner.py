@@ -175,6 +175,10 @@ def calculate(filename, tangentdivisor, showplot):
     print("pid_ki = %s" % (1 / Ki))
     print("pid_kd = %s" % (Kd))
 
+    config.pid_kp=Kp
+    config.pid_ki=(1/Ki)
+    config.pid_kd=Kd
+    print("Code has input PID values into config file.")
 
     if showplot:
         plot(xdata, ydata,

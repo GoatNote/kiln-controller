@@ -2,11 +2,12 @@ Kiln Controller
 ==========
 
 Turns a Raspberry Pi into an inexpensive, web-enabled kiln controller.
+PCB is configured for MAX31856 board.
 
 ## Features
 
   * supports [many boards](https://github.com/jbruce12000/kiln-controller/blob/main/docs/supported-boards.md) into addition to raspberry pi
-  * supports Adafruit MAX31856 and MAX31855 thermocouple boards
+  * supports Adafruit MAX31856 thermocouple boards
   * support for K, J, N, R, S, T, E, or B type thermocouples
   * easy to create new kiln schedules and edit / modify existing schedules
   * no limit to runtime - fire for days if you want
@@ -48,17 +49,11 @@ Turns a Raspberry Pi into an inexpensive, web-enabled kiln controller.
 
 ### Schematic
 
-The pi has three gpio pins connected to the MAX31855 chip. D0 is configured as an input and CS and CLK are outputs. The signal that controls the solid state relay starts as a gpio output which drives a transistor acting as a switch in front of it. This transistor provides 5V and plenty of current to control the ssr. Since only four gpio pins are in use, any pi can be used for this project. See the [config](https://github.com/jbruce12000/kiln-controller/blob/main/config.py) file for gpio pin configuration.
-
-My controller plugs into the wall, and the kiln plugs into the controller. 
-
 **WARNING** This project involves high voltages and high currents. Please make sure that anything you build conforms to local electrical codes and aligns with industry best practices.
 
 **Note:** The GPIO configuration in this schematic does not match the defaults, check [config](https://github.com/jbruce12000/kiln-controller/blob/main/config.py) and make sure the gpio pin configuration aligns with your actual connections.
 
 ![Image](https://github.com/jbruce12000/kiln-controller/blob/main/public/assets/images/schematic.png)
-
-*Note: I tried to power my ssr directly using a gpio pin, but it did not work. My ssr required 25ma to switch and rpi's gpio could only provide 16ma. YMMV.*
 
 ## Software 
 
